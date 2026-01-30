@@ -167,8 +167,6 @@ function creditcard_check($cardnumber, $cardname, &$errornumber, &$errortext)
         ]
     ];
 
-    $ccErrorNo = 0;
-
     // Unknown card type
     $ccErrors[0] = tds('ERR_UNKNOWN_CARD_TYPE', 'Unknown card type');
     // No card number provided
@@ -224,7 +222,6 @@ function creditcard_check($cardnumber, $cardname, &$errornumber, &$errortext)
     if ($cards[$cardType]['checkdigit'])
     {
         $checksum = 0;                                  // running checksum total
-        $mychar = "";                                   // next char to process
         $j = 1;                                         // takes value of 1 or 2
 
         // Process each digit one by one starting at the right
@@ -237,23 +234,15 @@ function creditcard_check($cardnumber, $cardname, &$errornumber, &$errortext)
             // If the result is in two digits add 1 to the checksum total
             if ($calc > 9)
             {
-                $checksum = $checksum + 1;
-                $calc = $calc - 10;
+                $checksum++;
+                $calc -= 10;
             }
 
             // Add the units element to the checksum total
-            $checksum = $checksum + $calc;
+            $checksum += $calc;
 
             // Switch the value of j
-            if ($j == 1)
-            {
-                $j = 2;
-            }
-            else
-            {
-                $j = 1;
-            }
-            ;
+            $j = ($j == 1) ? 2 : 1;
         }
 
         // All done - if checksum is divisible by 10, it is a valid modulus 10.
