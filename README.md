@@ -5,4 +5,8 @@ It contains logic to analyse credit card numbers.
 
 Installation
 ============
-Install the package with `composer require {{name}}`.
+Install the package with `composer require scavix/wdf-creditcard`.
+
+Dependencies
+------------
+* [scavix/wdf-core (^1.1.2)](https://packagist.org/packages/scavix/wdf-core#v1.1.2)
